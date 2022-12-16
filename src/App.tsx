@@ -1,8 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Driver from './interaction/Driver';
 
 function App() {
+  // TEST
+  Driver.getInstance().getTopics(new AbortController().signal).then((info) => console.info(info)).catch((e) => console.warn(e))
   return (
     <div className="App">
       <header className="App-header">
