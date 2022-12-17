@@ -13,7 +13,7 @@ import mapPhotos from "./mappers/PhotoMapper";
 class Unsplash implements Hook{
     private readonly BASE: string = 'https://api.unsplash.com'
     private readonly headers = {
-        "Authorization": "Client-ID " // process.env.REACT_APP_API_KEY // TODO: put back once 'process' does not throw errors
+        "Authorization": "Client-ID " + process.env.REACT_APP_API_KEY
     }
     async getTopics (signal: AbortSignal, page?: number, perPage?: number): Promise<Topic[]>{
         console.info(`Driver -> getTopics with ${page} & ${perPage}`);
