@@ -4,20 +4,45 @@
 }
 
 /* Photo view */
-#photo_container {
+#photos {
   height: 100vh;
-  /* This is just temporary until photo layout is created */
-  background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80');
-  background-size: cover;
-  background-position: center 0px;
   position: relative;
   z-index: 2;
-
   transition: transform 500ms ease;
+  background-color: black;
+
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  /*forces padding inside*/
+  box-sizing: border-box; 
+  padding: 20px;
+
+  overflow-y: scroll;
 }
 
-#app[data-nav="true"] > #photo_container {
+#app[data-nav="true"] > #photos {
   transform: translateY(-50%);
+}
+
+#photos::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#photos {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.photo {
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  cursor: pointer;
+  object-fit: cover;
+  background-repeat:no-repeat;
+  background-position: center center;
 }
 
 /* Topic navigator */
@@ -40,6 +65,16 @@
   transition: transform 500ms cubic-bezier(.13,.53,.38,.97); 
 
   overflow-x: scroll
+}
+
+#topics::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#topics {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 #app[data-nav="true"] > nav > #topics {
