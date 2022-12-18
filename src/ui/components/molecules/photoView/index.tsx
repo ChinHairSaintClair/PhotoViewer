@@ -30,7 +30,7 @@ const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props
             toolbarRender={({ rotate, onRotate, scale, onScale }) => (
                 <PhotoToolbar 
                     onDownload={() => console.info('download')}
-                    onRotate={() => onRotate(rotate+90)}
+                    onRotate={() => onRotate(rotate+90 === 360 ? 0 : rotate+90)}
                     onScale={() => onScale(scale > 1 ? 1: 1.9)}
                 />
             )}
