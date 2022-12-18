@@ -1,0 +1,31 @@
+#photos {
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+    transition: transform 500ms ease;
+    background-color: black;
+  
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  
+    /*forces padding inside*/
+    box-sizing: border-box; 
+    padding: 20px;
+  
+    overflow-y: scroll;
+}
+  
+#app[data-nav="true"] > #photos {
+    transform: translateY(-50%);
+}
+  
+#photos::-webkit-scrollbar {
+    display: none;
+}
+  
+/* Hide scrollbar for IE, Edge and Firefox */
+#photos {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

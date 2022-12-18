@@ -1,5 +1,5 @@
 import './Topic.css'
-import Info from "../../models/Topic";
+import Info from "../../../models/Topic";
 
 type Props = { info: Info, onClick: (id: string) => void }
 const Topic = ({ info: { id, name, amountOfPhotos }, onClick }: Props) => {
