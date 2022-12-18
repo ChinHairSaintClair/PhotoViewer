@@ -1,7 +1,9 @@
 import './App.css';
 
+import NavButton from './ui/components/atoms/navButton';
 import PhotoView from './ui/components/molecules/photoView';
 import TopicView from './ui/components/molecules/topicView';
+
 
 function App() {
   const onNavToggle = () => {
@@ -45,11 +47,7 @@ function App() {
     <div id="app" data-nav='false'>
       <PhotoView isLoading={false} info={photos} onClick={onPhotoClick} isLoadingMore={false} loadMore={() => console.info('on load more')}/>
       <TopicView info={topics} onClick={onTopicClick}/>
-      {/* Navigation toggle button */}
-      <button id='nav_toggle' type='button' onClick={onNavToggle}>
-        <i className="open">Topic</i>
-        <i className="close">X</i>
-      </button>
+      <NavButton onToggle={onNavToggle}/>
     </div>
   )
 }

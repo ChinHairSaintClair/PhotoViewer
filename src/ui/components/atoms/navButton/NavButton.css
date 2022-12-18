@@ -1,0 +1,58 @@
+#nav_toggle {
+    height: 3rem;
+    width: 3rem; /* Width should be definied by text */
+    position: fixed;
+    z-index: 3;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(182, 142, 113);
+    border: none;
+    outline: none;
+    border-radius: 3rem;
+    cursor: pointer;
+  
+    transition: transform, background-color;
+    transition-timing-function: ease;
+    transition-duration: 400ms;
+  
+    box-shadow: 10px 10px 25px 1px rgba(0,0,0,0.59);
+    -webkit-box-shadow: 10px 10px 25px 1px rgba(0,0,0,0.59);
+    -moz-box-shadow: 10px 10px 25px 1px rgba(0,0,0,0.59);
+}
+  
+#app[data-nav="true"] > #nav_toggle {
+    background-color: rgb(85, 130, 149);
+}
+  
+#nav_toggle:hover {
+    transform: translateX(-50%) scale(1.08);
+}
+  
+#nav_toggle:active {
+    transform: translate(-50%) scale(0.92);
+}
+  
+#nav_toggle>i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    color: rgb(246, 231, 224);
+    font-size: 1.75rem;
+    opacity: 0;
+
+    transition: transform, opacity;
+    transition-timing-function: ease;
+    transition-duration: 400ms;
+}
+  
+#app:not([data-nav="true"]) > #nav_toggle > .open {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+  
+#app[data-nav="true"] > #nav_toggle > .close {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}

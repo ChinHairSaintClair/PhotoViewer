@@ -1,3 +1,13 @@
+#app > nav {
+    height: 50vh;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1;
+    overflow: hidden;
+}
+
 #topics {  
     display: flex;
     gap: clamp(1rem, 2vw, 2rem);
