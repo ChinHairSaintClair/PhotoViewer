@@ -6,8 +6,8 @@ import './TopicView.css'
 import Info from '../../../models/Topic';
 import Topic from '../../atoms/topic';
 
-type Props = {info: Info[], onClick: () => void}
-const TopicView = ({ info, onClick }: Props) => {
+type Props = {isLoading: boolean, info: Info[], onClick: () => void}
+const TopicView = ({ isLoading, info, onClick }: Props) => {
     const topicRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
     const { events: topicEvents } = useDraggable(topicRef);
     

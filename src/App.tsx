@@ -46,7 +46,7 @@ function App() {
   return (
     <div id="app" data-nav='false'>
       <PhotoView isLoading={false} info={photos} onClick={onPhotoClick} isLoadingMore={false} loadMore={() => console.info('on load more')}/>
-      <TopicView info={topics} onClick={onTopicClick}/>
+      <TopicView isLoading={false} info={topics} onClick={onTopicClick}/>
       <NavButton onToggle={onNavToggle}/>
     </div>
   )
