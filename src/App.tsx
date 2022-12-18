@@ -2,6 +2,9 @@ import { useRef } from 'react';
 import './App.css';
 import { useDraggable } from "react-use-draggable-scroll";
 
+import Topic from './ui/components/topic';
+import Photo from './ui/components/photo';
+
 function App() {
   const topicRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
   const { events: topicEvents } = useDraggable(topicRef);
@@ -31,24 +34,27 @@ function App() {
 
   var topics = Array.from({length: 10},
     (v, k) => {
-      return (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a key={k} className='topic selector' href='#' onClick={onTopicClick}>
-          <h2 className="topic_title">Topic 1</h2>
-          <img className='topic_cover_photo selector' alt='alt' src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80'/>
-        </a>
-      );
+      return (<Topic key={k} info={{ id: k+'', name: 'Topic '+k, amountOfPhotos: 100 }} onClick={onTopicClick} />);
     }
   );
 
   var topicPhotos = Array.from({length: 12},
     (v, k) => {
       return (
-        <div
+        <Photo
           key={k}
-          className='photo' 
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80)'
+          info={{
+            id: k+'',
+            description: 'description',
+            averageColor: '#B00',
+            blurHash: undefined,
+            url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
+            urlLarge: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
+            author: {
+              id: '123',
+              name: 'Author',
+              portfolioUrl: undefined,
+            }
           }}
           onClick={onPhotoClick}
         />

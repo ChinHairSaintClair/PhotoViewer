@@ -36,18 +36,6 @@
   scrollbar-width: none;  /* Firefox */
 }
 
-.photo {
-  aspect-ratio: 1/1;
-  border-radius: 10px;
-  cursor: pointer;
-  object-fit: cover;
-  background-repeat:no-repeat;
-  background-position: center center;
-
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 /* Topic navigator */
 #app > nav {
   height: 50vh;
@@ -82,25 +70,6 @@
 
 #app[data-nav="true"] > nav > #topics {
   transform: translateY(0%) scale(1);
-}
-
-#topics > .topic {
-  text-decoration: none;
-}
-
-#topics > .topic > .topic_title {
-  color: white;
-  font-size: 1.25rem;
-  margin: 0rem;
-  text-transform: uppercase;
-}
-
-#topics > .topic > .topic_cover_photo {
-  width: max(20vw, 400px);
-  aspect-ratio: 1.8 / 1;
-  border-radius: 0.5rem;
-  margin-top: 0.75rem;
-  object-fit: cover;
 }
 
 .selector {
