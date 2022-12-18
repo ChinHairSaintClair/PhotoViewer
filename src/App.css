@@ -14,31 +14,6 @@
   overflow: hidden;
 }
 
-#topics {  
-  display: flex;
-  gap: clamp(1rem, 2vw, 2rem);
-  margin-top: clamp(2rem, 2vw, 3rem);
-  padding: 0rem clamp(1rem, 2vw, 2rem);
-  transform: translateY(70%) scale(0.9);
-  transition: transform 500ms cubic-bezier(.13,.53,.38,.97); 
-
-  overflow-x: scroll
-}
-
-#topics::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-#topics {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-#app[data-nav="true"] > nav > #topics {
-  transform: translateY(0%) scale(1);
-}
-
 .selector {
   /* user-drag: none; */
   -webkit-user-drag: none;

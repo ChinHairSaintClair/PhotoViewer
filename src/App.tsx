@@ -1,15 +1,9 @@
-import { useRef } from 'react';
 import './App.css';
-import { useDraggable } from "react-use-draggable-scroll";
 
 import PhotoView from './ui/components/molecules/photoView';
-
-import Topic from './ui/components/atoms/topic';
+import TopicView from './ui/components/molecules/topicView';
 
 function App() {
-  const topicRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
-  const { events: topicEvents } = useDraggable(topicRef);
-
   const onNavToggle = () => {
     document.getElementById('app')!.dataset.nav = 
     document.getElementById('app')!.dataset.nav === 'true' ? 'false' : 'true';
@@ -25,11 +19,11 @@ function App() {
 
   var topics = Array.from({length: 10},
     (v, k) => {
-      return (<Topic key={k} info={{ id: k+'', name: 'Topic '+k, amountOfPhotos: 100 }} onClick={onTopicClick} />);
+      return { id: k+'', name: 'Topic '+k, amountOfPhotos: 100 };
     }
   );
 
-  var photoInfo = Array.from({length: 12},
+  var photos = Array.from({length: 12},
     (v, k) => {
       return {
         id: k+'',
@@ -49,13 +43,8 @@ function App() {
 
   return (
     <div id="app" data-nav='false'>
-      <PhotoView isLoading={false} info={photoInfo} onClick={onPhotoClick} isLoadingMore={false} loadMore={() => console.info('on load more')}/>
-      {/* Topic nav */}
-      <nav>
-        <div id='topics' ref={topicRef} {...topicEvents}>
-          {topics}
-        </div>
-      </nav>
+      <PhotoView isLoading={false} info={photos} onClick={onPhotoClick} isLoadingMore={false} loadMore={() => console.info('on load more')}/>
+      <TopicView info={topics} onClick={onTopicClick}/>
       {/* Navigation toggle button */}
       <button id='nav_toggle' type='button' onClick={onNavToggle}>
         <i className="open">Topic</i>
