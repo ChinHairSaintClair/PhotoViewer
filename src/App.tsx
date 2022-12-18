@@ -1,9 +1,13 @@
+import { useRef } from 'react';
 import './App.css';
-import { useScrollContainer } from 'react-indiana-drag-scroll';
+import { useDraggable } from "react-use-draggable-scroll";
 
 function App() {
-  const topicScrollContainer = useScrollContainer();
-  const photoScrollContainer = useScrollContainer();
+  const topicRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
+  const { events: topicEvents } = useDraggable(topicRef);
+
+  const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
+  const { events } = useDraggable(ref);
 
   const onNavToggle = () => {
     document.getElementById('app')!.dataset.nav = 
@@ -18,6 +22,13 @@ function App() {
     console.info('The photo was clicked.')
   }
 
+  const onScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
+    if(bottom) {
+      console.info('Reached bottom of list');
+    }
+  }
+
   var topics = Array.from({length: 10},
     (v, k) => {
       return (
@@ -30,7 +41,7 @@ function App() {
     }
   );
 
-  var topicPhotos = Array.from({length: 10},
+  var topicPhotos = Array.from({length: 12},
     (v, k) => {
       return (
         <div
@@ -48,12 +59,12 @@ function App() {
   return (
     <div id="app" data-nav='false'>
       {/* Photo view */}
-      <div id='photos' ref={photoScrollContainer.ref}>
+      <div id='photos' ref={ref} {...events} onScroll={onScroll}>
         {topicPhotos}
       </div>
       {/* Topic nav */}
       <nav>
-        <div id='topics' ref={topicScrollContainer.ref}>
+        <div id='topics' ref={topicRef} {...topicEvents}>
           {topics}
         </div>
       </nav>

@@ -43,6 +43,9 @@
   object-fit: cover;
   background-repeat:no-repeat;
   background-position: center center;
+
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Topic navigator */
