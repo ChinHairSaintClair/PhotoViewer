@@ -9,6 +9,7 @@ import './PhotoView.css'
 import Info from '../../../models/Photo';
 import Photo from '../../atoms/photo';
 import PhotoToolbar from '../../atoms/photoToolbar';
+import PhotoOverlay from '../../atoms/photoOverlay';
 
 type Props = { isLoading: boolean, info: Info[], onClick: () => void, isLoadingMore: boolean, loadMore: () => void }
 const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props) => {
@@ -34,20 +35,14 @@ const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props
                     onScale={() => onScale(scale > 1 ? 1: 1.9)}
                 />
             )}
-            overlayRender={({ overlay }) => <div style={{    
-                position: 'absolute',
-                bottom: '0px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                color: 'white',
-            }}>{overlay}</div>}
+            overlayRender={({ overlay }) => <PhotoOverlay node={overlay}/>}
         >
             <div id='photos' ref={ref} {...events} onScroll={onScroll}>
                 {info.map((e) => (
                     <View 
-                    key={e.id} 
-                    src={e.url} 
-                    overlay={e.author.name}
+                        key={e.id} 
+                        src={e.url} 
+                        overlay={<a className='topic' href={e.author.portfolioUrl??"#"}>{e.author.name}</a>}
                     >
                         <Photo
                             key={e.id}

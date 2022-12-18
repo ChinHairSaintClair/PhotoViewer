@@ -37,7 +37,7 @@ function App() {
         author: {
           id: '123',
           name: 'Author' + k,
-          portfolioUrl: undefined,
+          portfolioUrl: k % 2 === 0 ? 'https://www.google.com' : undefined,
         }
       };
     }
