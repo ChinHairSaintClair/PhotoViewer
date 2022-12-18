@@ -8,6 +8,7 @@ import './PhotoView.css'
 
 import Info from '../../../models/Photo';
 import Photo from '../../atoms/photo';
+import PhotoToolbar from '../../atoms/photoToolbar';
 
 type Props = { isLoading: boolean, info: Info[], onClick: () => void, isLoadingMore: boolean, loadMore: () => void }
 const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props) => {
@@ -26,7 +27,13 @@ const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props
     
     return (
         <PhotoProvider 
-            toolbarRender={() => <div style={{ display: 'flex', gap: '8px' }}><button title='download'/><button title='zoom'/></div>}
+            toolbarRender={({ rotate, onRotate, scale, onScale }) => (
+                <PhotoToolbar 
+                    onDownload={() => console.info('download')}
+                    onRotate={() => onRotate(rotate+90)}
+                    onScale={() => onScale(scale > 1 ? 1: 1.9)}
+                />
+            )}
             overlayRender={({ overlay }) => <div style={{    
                 position: 'absolute',
                 bottom: '0px',
