@@ -9,7 +9,7 @@ import './PhotoView.css'
 import Info from '../../../models/Photo';
 import Photo from '../../atoms/photo';
 import PhotoToolbar from '../../atoms/photoToolbar';
-import PhotoOverlay from '../../atoms/photoOverlay';
+import PhotoOverlay, { OverlayEntry } from '../../atoms/photoOverlay';
 
 type Props = { isLoading: boolean, info: Info[], onClick: () => void, isLoadingMore: boolean, loadMore: () => void }
 const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props) => {
@@ -42,7 +42,7 @@ const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props
                     <View 
                         key={e.id} 
                         src={e.url} 
-                        overlay={<a className='topic' href={e.author.portfolioUrl??"#"}>{e.author.name}</a>}
+                        overlay={<OverlayEntry text={e.author.name} url={e.author.portfolioUrl}/>}
                     >
                         <Photo
                             key={e.id}

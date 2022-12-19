@@ -2,12 +2,17 @@
     z-index: 10;  
     position: absolute;
     bottom: 0px;
-    left: 50%;
-    transform: translateX(-50%);
     color: 'white';
     background-color: rgba(0,0,0, 0.6);
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 5px;
-    padding-bottom: 5px
+    padding-bottom: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+#overlay > a {
+    text-decoration: none;
+    color: rgb(246, 231, 224);
 }
