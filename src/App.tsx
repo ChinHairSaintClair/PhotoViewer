@@ -1,68 +1,96 @@
 import './App.css';
 
+import Driver from './interaction/Driver';
+
 import NavButton from './ui/components/atoms/navButton';
 import PhotoView from './ui/components/molecules/photoView';
 import TopicView from './ui/components/molecules/topicView';
 
 import Topic from './ui/models/Topic';
 import Photo from './ui/models/Photo';
+import { useEffect, useRef, useState } from 'react';
 
 function App() {
+  const driver = Driver.getInstance();
+  const topicController = new AbortController();
+  const getTopics = async () => await driver.getTopics(topicController.signal).then((items) => {
+    setTopics(items)
+    return items; // To chain impl specific actions
+  }).catch((e) => console.error('Error: ', e));
+  const photoController = new AbortController();
+  const getPhotos = async (topicId: string, page: number, append?: boolean) => await driver.getPhotos(photoController.signal, topicId, page, 12).then((items) => append ? setPhotos((prev) => [...prev, ...items]) : setPhotos(items)).catch((e) => console.error('Error: ', e));
+
+  const [topics, setTopics] = useState<Topic[]>([]);
+  const selected = useRef<string>(); // Tracks selected topic
+  const [hasTopicsLoading, setHasTopicsLoading] = useState<boolean>(true)
+
+  const [photos, setPhotos] = useState<Photo[]>([])
+  const page = useRef<number>(1) // Tracks current photo page
+  const [hasPhotosLoading, setHasPhotosLoading] = useState<boolean>(true)
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+
+  // useEffect fires twice in dev mode not production due to 'strict'
+  // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
+  useEffect(() => {
+    setHasTopicsLoading(true)
+    getTopics().then((items) => {
+      if(items !== undefined){
+        setHasPhotosLoading(true);
+        const id = items[0].id;
+        getPhotos(id, 1).then(() => {
+          selected.current = id;
+          setHasPhotosLoading(false);
+        });
+
+        setHasTopicsLoading(false);
+      }
+    })
+
+    return () => {
+      // TODO: abort controller impl
+      // topicController.abort();
+      // photoController.abort();
+    }
+  }, [])
+
   const onNavToggle = () => {
     document.getElementById('app')!.dataset.nav = 
     document.getElementById('app')!.dataset.nav === 'true' ? 'false' : 'true';
   }
 
-  const onTopicClick = () => {
-    console.log('The link was clicked.');
+  const onTopicClick = (id: string) => {
+    if(selected.current !== id){
+      setHasPhotosLoading(true);
+      getPhotos(id, page.current).then(() => {
+        selected.current = id;
+        setHasPhotosLoading(false);
+      })
+    }
   };
 
-  const onPhotoClick = () => {
-    console.info('The photo was clicked.')
+  const onViewPhoto = (id: string) => {
+    // Perhaps track clicked photos
   }
 
-  var topics: Topic[] = Array.from({length: 10},
-    (v, k) => {
-      return { id: k+'', name: 'Topic '+k, amountOfPhotos: 100, coverPhoto: {
-        id: k+'',
-        description: 'description'+k,
-        averageColor: '#000',
-        blurHash: undefined,
-        url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
-        urlLarge: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
-        downloadUrl: 'https://unsplash.com/photos/tA9FfKRaH-c/download?ixid=MnwzOTAxOTB8MHwxfHRvcGljfHw2c01WalRMU2tlUXx8fHx8Mnx8MTY3MTQ0OTM0MA',
-        author: {
-          id: '123',
-          name: 'Author' + k,
-          portfolioUrl: k % 2 === 0 ? 'https://www.google.com' : undefined,
-        }
-      } };
-    }
-  );
-
-  var photos: Photo[] = Array.from({length: 12},
-    (v, k) => {
-      return {
-        id: k+'',
-        description: 'description',
-        averageColor: '#B00',
-        blurHash: undefined,
-        url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
-        urlLarge: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
-        downloadUrl: 'https://unsplash.com/photos/tA9FfKRaH-c/download?ixid=MnwzOTAxOTB8MHwxfHRvcGljfHw2c01WalRMU2tlUXx8fHx8Mnx8MTY3MTQ0OTM0MA',
-        author: {
-          id: '123',
-          name: 'Author' + k,
-          portfolioUrl: k % 2 === 0 ? 'https://www.google.com' : undefined,
-        }
-      };
-    }
-  );
+  const onLoadMorePhotos = () => {
+    const newPage = page.current + 1
+    setIsLoadingMore(true)
+    getPhotos(selected.current!, newPage, true).then(() => {
+      page.current = newPage;
+      setIsLoadingMore(false)
+    })
+  }
 
   return (
     <div id="app" data-nav='false'>
-      <PhotoView isLoading={false} info={photos} onClick={onPhotoClick} isLoadingMore={false} loadMore={() => console.info('on load more')}/>
-      <TopicView isLoading={false} info={topics} onClick={onTopicClick}/>
+      <PhotoView 
+        isLoading={hasPhotosLoading}
+        info={photos} 
+        onViewPhoto={onViewPhoto} 
+        isLoadingMore={isLoadingMore} 
+        loadMore={onLoadMorePhotos}
+      />
+      <TopicView isLoading={hasTopicsLoading} info={topics} onClick={onTopicClick}/>
       <NavButton topic='Topic' onToggle={onNavToggle}/>
     </div>
   )

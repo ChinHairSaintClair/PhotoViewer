@@ -10,19 +10,17 @@ import Info from '../../../models/Photo';
 import Photo from '../../atoms/photo';
 import PhotoToolbar from '../../atoms/photoToolbar';
 import PhotoOverlay, { OverlayEntry } from '../../atoms/photoOverlay';
+import Loader from '../../atoms/loader';
 
-type Props = { isLoading: boolean, info: Info[], onClick: () => void, isLoadingMore: boolean, loadMore: () => void }
-const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props) => {
-    const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
+type Props = { isLoading: boolean, info: Info[], onViewPhoto: (id: string) => void, isLoadingMore: boolean, loadMore: () => void }
+const PhotoView = ({ isLoading, info, onViewPhoto, isLoadingMore, loadMore } : Props) => {
+    const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { events } = useDraggable(ref);
 
     const onScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
         const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
-        if(bottom) {
-          console.info('Reached bottom of list');
-          if(!isLoading && !isLoadingMore){
+        if(bottom && !isLoading && !isLoadingMore) {
             loadMore();
-          }
         }
     }
     
@@ -36,21 +34,26 @@ const PhotoView = ({ isLoading, info, onClick, isLoadingMore, loadMore } : Props
                 />
             )}
             overlayRender={({ overlay }) => <PhotoOverlay node={overlay}/>}
+            onIndexChange={(idx) => onViewPhoto(info[idx].id)}
         >
-            <div id='photos' ref={ref} {...events} onScroll={onScroll}>
-                {info.map((e) => (
-                    <View 
-                        key={e.id} 
-                        src={e.url} 
-                        overlay={<OverlayEntry text={e.author.name} url={e.author.portfolioUrl}/>}
-                    >
-                        <Photo
-                            key={e.id}
-                            info={e}
-                            onClick={onClick}
-                        />
-                    </View>
-                ))}
+            <div id='photos'>
+                <div id='inner' ref={ref} {...events} onScroll={onScroll} style={{ opacity: isLoading ? 0 : 1 }}>
+                    {info.map((e) => (
+                        <View 
+                            key={e.id} 
+                            src={e.url} 
+                            overlay={<OverlayEntry text={e.author.name} url={e.author.portfolioUrl}/>}
+                        >
+                            <Photo
+                                key={e.id}
+                                info={e}
+                                onClick={() => onViewPhoto(e.id)}
+                            />
+                        </View>
+                    ))}
+                </div>
+                <Loader visible={isLoading}/>
+                {isLoadingMore &&<h4 id='load_more'>Loading additional photos...</h4>}
             </div>
         </PhotoProvider>
     )

@@ -12,7 +12,7 @@ const map = (be: BE_Photo[]): Photo[] => {
         urlLarge: full,
         author: {
             id: uId, 
-            name: first_name + last_name,
+            name: `${first_name} ${last_name}`,
             portfolioUrl: portfolio_url,
         }
      };      
