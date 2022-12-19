@@ -29,7 +29,17 @@ class Unsplash implements Hook{
     async getPhotos (signal: AbortSignal, topicId: string, page?: number, perPage?: number): Promise<Photo[]>{
         console.info(`Driver -> getPhotos with ${page} & ${perPage}`);
         try{
-            const response = await axios.get<BE_Photo[]>(`${this.BASE}/topics/${topicId}/photos`, {signal, headers: this.headers});
+            const response = await axios.get<BE_Photo[]>(
+                `${this.BASE}/topics/${topicId}/photos`, 
+                {
+                    signal, 
+                    headers: this.headers,
+                    params: {
+                        page,
+                        per_page: perPage
+                    }
+                }
+            );
             return mapPhotos(response?.data ?? []);
         }
         catch(e){

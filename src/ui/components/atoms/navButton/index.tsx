@@ -1,9 +1,9 @@
 import './NavButton.css'
 
-type Props = {onToggle: () => void}
-const NavButton = ({ onToggle }: Props) => (
+type Props = { topic: string, onToggle: () => void}
+const NavButton = ({ topic, onToggle }: Props) => (
     <button id='nav_toggle' type='button' onClick={onToggle}>
-        <i className="open">Topic</i>
+        <i className="open">{topic}</i>
         <i className="close">X</i>
     </button>
 )
