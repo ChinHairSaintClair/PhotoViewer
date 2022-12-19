@@ -1,6 +1,6 @@
 # Config
 
-Before starting the app enusre that a `env.local` file is created. 
+Before starting the app enusre that a `env.local` file is created.\
 This file must contain a `REACT_APP_API_KEY` variable assigned to a valid `unsplash api key`.
 
 # TODO
