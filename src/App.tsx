@@ -51,6 +51,7 @@ function App() {
       // topicController.abort();
       // photoController.abort();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onNavToggle = () => {
