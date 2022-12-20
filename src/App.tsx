@@ -91,7 +91,7 @@ function App() {
         isLoadingMore={isLoadingMore} 
         loadMore={onLoadMorePhotos}
       />
-      <TopicView isLoading={hasTopicsLoading} info={topics} onClick={onTopicClick}/>
+      <TopicView isLoading={hasTopicsLoading} info={topics} selectedId={selected.current} onClick={onTopicClick}/>
       <NavButton topic='Topic' onToggle={onNavToggle}/>
     </div>
   )
