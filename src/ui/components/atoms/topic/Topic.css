@@ -9,6 +9,21 @@
     text-transform: uppercase;
 }
 
+.topic > .topic_photo_count {
+    position: absolute;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    bottom: 0px;
+    color: white;
+    font-size: 0.9rem;
+    background-color: rgba(0,0,0, 0.7);
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 10px;
+    text-align: center;
+}
+
 .topic > .topic_cover_photo {
     width: max(20vw, 400px);
     aspect-ratio: 1.8 / 1;
