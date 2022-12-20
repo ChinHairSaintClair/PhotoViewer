@@ -1,3 +1,6 @@
+# Demo
+The project can be viewed [here](https://chinhairsaintclair.github.io/PhotoViewer/).
+
 # Config
 
 Before starting the app ensure that a `env.local` file is created.\
