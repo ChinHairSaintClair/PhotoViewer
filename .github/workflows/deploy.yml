@@ -32,6 +32,11 @@ jobs:
       - run: npm ci
       # - run: npm pkg set scripts.prepare="exit 0" && npm ci --only=production
 
+      - name: Insert .env.production
+        env:
+          DATA: ${{ secrets.UNSPLASH_API_KEY }}
+        run: echo $DATA >> .env.production
+        
 #       # Runs a single command using the runners shell
 #       - name: Run tests
 #         run: npm test
