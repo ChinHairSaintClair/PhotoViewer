@@ -8,7 +8,7 @@ This file must contain a `REACT_APP_API_KEY` variable assigned to a valid `unspl
 
 # TODO
 
-- Photo pagination trigger irregularity on different screen sizes
+- ~~Photo pagination trigger irregularity on different screen sizes~~
 - Error handling & retry functionality
 - Abort controllers
 - Responsive styling (eg. photo grid 3 col -> 2)
