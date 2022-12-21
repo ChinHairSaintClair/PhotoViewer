@@ -9,6 +9,7 @@ const Photo = React.forwardRef<HTMLDivElement, Props>(({ info: { id, description
       ref={ref}
       className='photo' 
       style={{
+        backgroundColor: averageColor,
         backgroundImage: `url(${url})`
       }}
       onClick={onClick}
