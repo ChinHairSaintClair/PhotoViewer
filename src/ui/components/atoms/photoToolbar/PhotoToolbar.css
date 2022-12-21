@@ -2,12 +2,3 @@
     display: flex;
     gap: 8px;
 }
-
-#toolbar > button {
-    height: 1.5rem;
-    color: white;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 10px;
-    background-color: transparent;
-}

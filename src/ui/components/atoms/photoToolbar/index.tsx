@@ -1,11 +1,12 @@
 import './PhotoToolbar.css'
+import OutlinedButton from '../outlinedButton/index'
 
 type Props = {onDownload: () => void, onRotate: () => void, onScale: () => void}
 const PhotoToolbar = ({ onDownload, onRotate, onScale }: Props) => (
     <div id="toolbar">
-        <button title='download' onClick={onDownload} disabled style={{ opacity: 0 }}>Download</button>
-        <button title='rotate' onClick={() => onRotate()}>Rotate</button>
-        <button title='zoom' onClick={() => onScale()}>Zoom</button>
+        <OutlinedButton title='download' onClick={onDownload} disabled style={{ opacity: 0 }}>Download</OutlinedButton>
+        <OutlinedButton title='rotate' onClick={() => onRotate()}>Rotate</OutlinedButton>
+        <OutlinedButton title='zoom' onClick={() => onScale()}>Zoom</OutlinedButton>
     </div>
 )
 

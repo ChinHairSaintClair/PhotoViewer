@@ -16,17 +16,21 @@ function App() {
   const getTopics = async () => await driver.getTopics(topicController.signal).then((items) => {
     setTopics(items)
     return items; // To chain impl specific actions
-  }).catch((e) => console.error('Error: ', e));
+  }).catch((e) => {
+    setTopicError(e);
+    setHasTopicsLoading(false);
+  });
   const photoController = new AbortController();
   const getPhotos = async (topicId: string, page: number, append?: boolean) => await driver.getPhotos(photoController.signal, topicId, page, 12).then((items) => append ? setPhotos((prev) => [...prev, ...items]) : setPhotos(items)).catch((e) => console.error('Error: ', e));
 
   const [topics, setTopics] = useState<Topic[]>([]);
   const selected = useRef<string>(); // Tracks selected topic
-  const [hasTopicsLoading, setHasTopicsLoading] = useState<boolean>(true)
+  const [hasTopicsLoading, setHasTopicsLoading] = useState<boolean>(true);
+  const [topicError, setTopicError] = useState<string>();
 
-  const [photos, setPhotos] = useState<Photo[]>([])
-  const page = useRef<number>(1) // Tracks current photo page
-  const [hasPhotosLoading, setHasPhotosLoading] = useState<boolean>(true)
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const page = useRef<number>(1); // Tracks current photo page
+  const [hasPhotosLoading, setHasPhotosLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
 
   // useEffect fires twice in dev mode not production due to 'strict'
@@ -91,7 +95,14 @@ function App() {
         isLoadingMore={isLoadingMore} 
         loadMore={onLoadMorePhotos}
       />
-      <TopicView isLoading={hasTopicsLoading} info={topics} selectedId={selected.current} onClick={onTopicClick}/>
+      <TopicView 
+        isLoading={hasTopicsLoading}
+        info={topics}
+        selectedId={selected.current}
+        onClick={onTopicClick}
+        error={topicError}
+        onRetry={() => console.info('onTopicRetry')}
+      />
       <NavButton topic='Topic' onToggle={onNavToggle}/>
     </div>
   )

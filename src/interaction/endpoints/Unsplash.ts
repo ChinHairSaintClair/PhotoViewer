@@ -24,6 +24,7 @@ class Unsplash implements Hook{
         catch(e){
             throw Unsplash.processError(e);
         }
+        // throw Error('Testing')
     }
 
     async getPhotos (signal: AbortSignal, topicId: string, page?: number, perPage?: number): Promise<Photo[]>{
