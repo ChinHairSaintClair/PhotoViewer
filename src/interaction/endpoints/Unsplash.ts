@@ -50,9 +50,18 @@ class Unsplash implements Hook{
     }
 
     static processError (e: unknown) {
+        console.info(e)
         if(e instanceof AxiosError){
-            const errors: String[] | undefined = e.response?.data?.['errors'];
-            const error = (errors??[]).reduce((accumulator, currentValue) => `${accumulator}\n${currentValue}`);
+            const data = e.response?.data;
+
+            let error = "Unexpected error occurred";
+            if(Array.isArray(data?.['errors'])){
+                const errors: string[] | undefined = data?.['errors'];
+                error = (errors??[]).reduce((accumulator, currentValue) => `${accumulator}\n${currentValue}`);
+            }
+            else if(typeof data === 'string'){
+                error = data;
+            }
             return Error(`${error}`);
         }
         return e
