@@ -27,7 +27,10 @@ const PhotoView = ({ isLoading, info, onViewPhoto, isLoadingMore, loadMore, erro
     const { events } = useDraggable(ref);
 
     const onScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-        const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
+        const { currentTarget: { scrollHeight, scrollTop, clientHeight } } = e;
+        // https://stackoverflow.com/questions/45585542/detecting-when-user-scrolls-to-bottom-of-div-with-react-js
+        // On systems using display scaling, scrollTop may give you a decimal value.
+        const bottom = Math.abs(scrollHeight - (scrollTop + clientHeight)) <= 1;
         if(bottom && !isLoading && !isLoadingMore) {
             loadMore();
         }
