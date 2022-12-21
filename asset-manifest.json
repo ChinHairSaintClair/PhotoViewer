@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/PhotoViewer/static/css/main.101c514e.css",
-    "main.js": "/PhotoViewer/static/js/main.d8673681.js",
+    "main.js": "/PhotoViewer/static/js/main.eaeb5228.js",
     "static/js/787.ad7a0f6b.chunk.js": "/PhotoViewer/static/js/787.ad7a0f6b.chunk.js",
     "index.html": "/PhotoViewer/index.html",
     "main.101c514e.css.map": "/PhotoViewer/static/css/main.101c514e.css.map",
-    "main.d8673681.js.map": "/PhotoViewer/static/js/main.d8673681.js.map",
+    "main.eaeb5228.js.map": "/PhotoViewer/static/js/main.eaeb5228.js.map",
     "787.ad7a0f6b.chunk.js.map": "/PhotoViewer/static/js/787.ad7a0f6b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.101c514e.css",
-    "static/js/main.d8673681.js"
+    "static/js/main.eaeb5228.js"
   ]
 }
