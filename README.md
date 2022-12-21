@@ -8,14 +8,14 @@ This file must contain a `REACT_APP_API_KEY` variable assigned to a valid `unspl
 
 # TODO
 
-- Blur hash on photos
-- Download button functionality
-- Nav button dynamic topic label + adaptive styling
-- Error handling & retry functionality
-- Lazy loading images
-- Responsive styling (eg. photo grid 3 col -> 2)
 - Photo pagination trigger irregularity on different screen sizes
+- Error handling & retry functionality
+- Responsive styling (eg. photo grid 3 col -> 2)
+- Lazy loading images
+- Blur hash on photos
+- Nav button dynamic topic label + adaptive styling
 - General styling tweaks
+- Download button functionality
 
 ## Available Scripts
 

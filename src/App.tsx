@@ -37,7 +37,8 @@ function App() {
   const [topicError, setTopicError] = useState<string>();
 
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const page = useRef<number>(1); // Tracks current photo page
+  const INITIAL_PAGE = 1
+  const page = useRef<number>(INITIAL_PAGE); // Tracks current photo page
   const [hasPhotosLoading, setHasPhotosLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
   const [photoError, setPhotoError] = useState<string>()
@@ -75,8 +76,9 @@ function App() {
   const onTopicClick = (id: string) => {
     if(selected.current !== id){
       setHasPhotosLoading(true);
-      getPhotos(id, page.current).then(() => {
+      getPhotos(id, INITIAL_PAGE).then(() => {
         selected.current = id;
+        page.current = INITIAL_PAGE;
         setHasPhotosLoading(false);
       })
     }
