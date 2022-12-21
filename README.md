@@ -3,7 +3,7 @@ The project can be viewed [here](https://chinhairsaintclair.github.io/PhotoViewe
 
 # Config
 
-Before starting the app ensure that a `env.local` file is created.\
+Before starting the app ensure that a `.env.local` file is created.\
 This file must contain a `REACT_APP_API_KEY` variable assigned to a valid `unsplash api key`.
 
 # TODO
@@ -11,7 +11,7 @@ This file must contain a `REACT_APP_API_KEY` variable assigned to a valid `unspl
 - ~~Photo pagination trigger irregularity on different screen sizes~~
 - Error handling & retry functionality
 - Abort controllers
-- Responsive styling (eg. photo grid 3 col -> 2)
+- ~~Minor Responsive styling (eg. photo grid 3 col -> 2)~~
 - Lazy loading images
 - Blur hash on photos
 - Nav button dynamic topic label + adaptive styling

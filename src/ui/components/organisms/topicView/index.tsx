@@ -6,17 +6,15 @@ import './TopicView.css'
 import Info from '../../../models/Topic';
 
 import Topic from '../../atoms/topic';
-import Loader from '../../atoms/loader';
-import ErrorIndicator from '../../molecules/errorIndicator';
 
-type Props = {isLoading: boolean, info: Info[], selectedId?: string, onClick: (id: string) => void, error?: string, onRetry: () => void}
-const TopicView = ({ isLoading, info, selectedId, onClick, error, onRetry }: Props) => {
+type Props = {info: Info[], selectedId?: string, onClick: (id: string) => void}
+const TopicView = ({ info, selectedId, onClick }: Props) => {
     const topicRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
     const { events: topicEvents } = useDraggable(topicRef);
     
     return (
         <nav>
-            <div id='topics' ref={topicRef} {...topicEvents} style={{ opacity: isLoading || error ? 0 : 1 }}>
+            <div id='topics' ref={topicRef} {...topicEvents}>
                 { info.map((e) => (
                     <Topic 
                         key={e.id} 
@@ -26,14 +24,6 @@ const TopicView = ({ isLoading, info, selectedId, onClick, error, onRetry }: Pro
                     />
                 ))}
             </div>
-            <Loader visible={isLoading}/>
-            {error && (
-                <ErrorIndicator 
-                    error={error} 
-                    retryText={'Reload Topics'} 
-                    onRetry={onRetry}
-                />
-            )}
         </nav>
     )
 }

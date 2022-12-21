@@ -15,10 +15,10 @@ class Unsplash implements Hook{
     private readonly headers = {
         "Authorization": "Client-ID " + process.env.REACT_APP_API_KEY
     }
-    async getTopics (signal: AbortSignal, page?: number, perPage?: number): Promise<Topic[]>{
+    async getTopics (page?: number, perPage?: number): Promise<Topic[]>{
         console.info(`Driver -> getTopics with ${page} & ${perPage}`);
         try{
-            const response = await axios.get<BE_Topic[]>(`${this.BASE}/topics`, {signal, headers: this.headers});
+            const response = await axios.get<BE_Topic[]>(`${this.BASE}/topics`, {headers: this.headers});
             return mapTopic(response?.data ?? []);
         }
         catch(e){
@@ -27,13 +27,12 @@ class Unsplash implements Hook{
         // throw Error('Testing')
     }
 
-    async getPhotos (signal: AbortSignal, topicId: string, page?: number, perPage?: number): Promise<Photo[]>{
+    async getPhotos (topicId: string, page?: number, perPage?: number): Promise<Photo[]>{
         console.info(`Driver -> getPhotos with ${page} & ${perPage}`);
         try{
             const response = await axios.get<BE_Photo[]>(
                 `${this.BASE}/topics/${topicId}/photos`, 
                 {
-                    signal, 
                     headers: this.headers,
                     params: {
                         page,
