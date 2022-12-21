@@ -21,7 +21,11 @@ function App() {
     setHasTopicsLoading(false);
   });
   const photoController = new AbortController();
-  const getPhotos = async (topicId: string, page: number, append?: boolean) => await driver.getPhotos(photoController.signal, topicId, page, 12).then((items) => append ? setPhotos((prev) => [...prev, ...items]) : setPhotos(items)).catch((e) => console.error('Error: ', e));
+  const getPhotos = async (topicId: string, page: number, append?: boolean) => await driver.getPhotos(photoController.signal, topicId, page, 12).then((items) => append ? setPhotos((prev) => [...prev, ...items]) : setPhotos(items)).catch((e) => {
+    setHasPhotosLoading(false);
+    setIsLoadingMore(false);
+    setPhotoError(e);
+  });
 
   const [topics, setTopics] = useState<Topic[]>([]);
   const selected = useRef<string>(); // Tracks selected topic
@@ -32,6 +36,7 @@ function App() {
   const page = useRef<number>(1); // Tracks current photo page
   const [hasPhotosLoading, setHasPhotosLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+  const [photoError, setPhotoError] = useState<string>()
 
   // useEffect fires twice in dev mode not production due to 'strict'
   // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
@@ -94,6 +99,8 @@ function App() {
         onViewPhoto={onViewPhoto} 
         isLoadingMore={isLoadingMore} 
         loadMore={onLoadMorePhotos}
+        error={photoError}
+        onRetry={() => console.info('onPhotoRetry')}
       />
       <TopicView 
         isLoading={hasTopicsLoading}

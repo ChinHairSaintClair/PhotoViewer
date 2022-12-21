@@ -46,6 +46,7 @@ class Unsplash implements Hook{
         catch(e){
             throw Unsplash.processError(e)
         }
+        // throw Error('Testing')
     }
 
     static processError (e: unknown) {

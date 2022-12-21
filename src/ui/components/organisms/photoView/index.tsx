@@ -11,9 +11,18 @@ import Photo from '../../atoms/photo';
 import PhotoToolbar from '../../atoms/photoToolbar';
 import PhotoOverlay, { OverlayEntry } from '../../atoms/photoOverlay';
 import Loader from '../../atoms/loader';
+import ErrorIndicator from '../../molecules/errorIndicator';
 
-type Props = { isLoading: boolean, info: Info[], onViewPhoto: (id: string) => void, isLoadingMore: boolean, loadMore: () => void }
-const PhotoView = ({ isLoading, info, onViewPhoto, isLoadingMore, loadMore } : Props) => {
+type Props = { 
+    isLoading: boolean
+    info: Info[]
+    onViewPhoto: (id: string) => void
+    isLoadingMore: boolean
+    loadMore: () => void
+    error?: string
+    onRetry: () => void
+}
+const PhotoView = ({ isLoading, info, onViewPhoto, isLoadingMore, loadMore, error, onRetry } : Props) => {
     const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
     const { events } = useDraggable(ref);
 
@@ -54,6 +63,7 @@ const PhotoView = ({ isLoading, info, onViewPhoto, isLoadingMore, loadMore } : P
                 </div>
                 <Loader visible={isLoading}/>
                 {isLoadingMore &&<h4 id='load_more'>Loading additional photos...</h4>}
+                {error && <ErrorIndicator error={error} retryText='Reload Photos' onRetry={onRetry}/>}
             </div>
         </PhotoProvider>
     )

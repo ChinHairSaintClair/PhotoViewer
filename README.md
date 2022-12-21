@@ -12,6 +12,7 @@ This file must contain a `REACT_APP_API_KEY` variable assigned to a valid `unspl
 - Download button functionality
 - Nav button dynamic topic label + adaptive styling
 - Error handling & retry functionality
+- Lazy loading images
 - Responsive styling (eg. photo grid 3 col -> 2)
 - Photo pagination trigger irregularity on different screen sizes
 - General styling tweaks
