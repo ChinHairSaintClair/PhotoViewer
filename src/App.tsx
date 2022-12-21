@@ -3,8 +3,8 @@ import './App.css';
 import Driver from './interaction/Driver';
 
 import NavButton from './ui/components/atoms/navButton';
-import PhotoView from './ui/components/molecules/photoView';
-import TopicView from './ui/components/molecules/topicView';
+import PhotoView from './ui/components/organisms/photoView';
+import TopicView from './ui/components/organisms/topicView';
 
 import Topic from './ui/models/Topic';
 import Photo from './ui/models/Photo';

@@ -7,7 +7,7 @@ import Info from '../../../models/Topic';
 
 import Topic from '../../atoms/topic';
 import Loader from '../../atoms/loader';
-import ErrorIndicator from '../errorIndicator';
+import ErrorIndicator from '../../molecules/errorIndicator';
 
 type Props = {isLoading: boolean, info: Info[], selectedId?: string, onClick: (id: string) => void, error?: string, onRetry: () => void}
 const TopicView = ({ isLoading, info, selectedId, onClick, error, onRetry }: Props) => {
