@@ -8,7 +8,7 @@ const Topic = ({ info: { id, name, amountOfPhotos, coverPhoto: { description, av
     return (
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a className='topic' href='#' onClick={() => onClick(id)}>
-        <h2 className="topic_title" style={{ color: isSelected ? 'rgb(85, 130, 149)' : undefined }}>{name}</h2>
+        <h2 className="topic_title" style={{ color: isSelected ? 'rgb(108 89 187)' : undefined }}>{name}</h2>
         <div className='topic_cover_photo' 
           style={{
             position: 'absolute',

@@ -3,10 +3,17 @@
 }
 
 .topic > .topic_title {
+    position: absolute;
+    margin-top: 12px;
     color: white;
     font-size: 1.25rem;
-    margin: 0rem;
     text-transform: uppercase;
+    background: linear-gradient(to bottom right,rgb(0 0 0 / 59%),transparent);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    border-top-left-radius: 8px;
 }
 
 .topic > .topic_photo_count {
