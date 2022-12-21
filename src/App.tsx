@@ -14,14 +14,18 @@ function App() {
   const driver = Driver.getInstance();
   const topicController = new AbortController();
   const getTopics = async () => await driver.getTopics(topicController.signal).then((items) => {
-    setTopics(items)
+    setTopicError(undefined);
+    setTopics(items);
     return items; // To chain impl specific actions
   }).catch((e) => {
     setTopicError(e);
     setHasTopicsLoading(false);
   });
   const photoController = new AbortController();
-  const getPhotos = async (topicId: string, page: number, append?: boolean) => await driver.getPhotos(photoController.signal, topicId, page, 12).then((items) => append ? setPhotos((prev) => [...prev, ...items]) : setPhotos(items)).catch((e) => {
+  const getPhotos = async (topicId: string, page: number, append?: boolean) => await driver.getPhotos(photoController.signal, topicId, page, 12).then((items) => {
+    setPhotoError(undefined);
+    append ? setPhotos((prev) => [...prev, ...items]) : setPhotos(items);
+  }).catch((e) => {
     setHasPhotosLoading(false);
     setIsLoadingMore(false);
     setPhotoError(e);
